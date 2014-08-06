@@ -284,25 +284,12 @@ class ElementBinder {
     _link(nodeInjector, scope, nodeAttrs);
 
     var jsNode;
-    List bindAssignableProps = [];
-    bindAttrs.forEach((String prop, AST ast) {
+    bindAttrs.forEach((String prop, ast) {
       if (jsNode == null) jsNode = new js.JsObject.fromBrowserObject(node);
       scope.watchAST(ast, (v, _) {
         jsNode[prop] = v;
       });
-
-      if (ast.parsedExp.isAssignable) {
-        bindAssignableProps.add([prop, ast.parsedExp]);
-      }
     });
-
-    if (bindAssignableProps.isNotEmpty) {
-      node.addEventListener('change', (_) {
-        bindAssignableProps.forEach((propAndExp) {
-          propAndExp[1].assign(scope.context, jsNode[propAndExp[0]]);
-        });
-      });
-    }
 
     if (onEvents.isNotEmpty) {
       onEvents.forEach((event, value) {
