@@ -10,7 +10,6 @@ module.exports = function(config) {
     files: [
       'packages/web_components/platform.js',
       'packages/web_components/dart_support.js',
-      'test/core_dom/web_components_support.js',
       'test/*.dart',
       'test/**/*_spec.dart',
       'test/config/init_guinness.dart',
